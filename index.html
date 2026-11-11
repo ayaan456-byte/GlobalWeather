@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Check live weather and forecasts for cities across Pakistan and worldwide.">
+    <title>Global Weather — Live Weather Worldwide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+    <a href="#" class="logo">🌤 Global Weather</a>
+    <span class="header-label">Weather Worldwide</span>
+</header>
+
+<main>
+    <section class="hero">
+        <span class="eyebrow">YOUR WEATHER, EVERYWHERE</span>
+        <h1>Discover the Weather<br>Around the World</h1>
+        <p>Accurate weather information for your city and beyond.</p>
+
+        <form class="search-box" id="searchForm">
+            <span class="search-icon">⌕</span>
+            <input
+                    type="text"
+                    id="cityInput"
+                    placeholder="Search any city... e.g. Lahore, London"
+                    autocomplete="off"
+                    required
+            >
+            <button type="submit">Search</button>
+        </form>
+
+        <button class="location-btn" id="locationBtn">
+            ◎ Use My Current Location
+        </button>
+
+        <p id="statusMessage" class="status-message" aria-live="polite"></p>
+    </section>
+
+    <section class="container">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">EXPLORE</span>
+                <h2>Popular Cities</h2>
+            </div>
+        </div>
+
+        <div class="city-list">
+            <button class="city-btn" data-city="Karachi">Karachi</button>
+            <button class="city-btn" data-city="Lahore">Lahore</button>
+            <button class="city-btn" data-city="Islamabad">Islamabad</button>
+            <button class="city-btn" data-city="Dubai">Dubai</button>
+            <button class="city-btn" data-city="London">London</button>
+            <button class="city-btn" data-city="New York">New York</button>
+            <button class="city-btn" data-city="Tokyo">Tokyo</button>
+        </div>
+    </section>
+
+    <section class="container weather-section" id="weatherSection">
+        <div class="empty-weather">
+            <div class="weather-icon">🌍</div>
+            <h2>Your Weather Starts Here</h2>
+            <p>Search for a city above to see its weather information.</p>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <p>Global Weather — Weather information for everyone.</p>
+    <p>Weather data will be provided with source attribution.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

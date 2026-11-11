@@ -1,0 +1,377 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f8ff;
+    color: #172b4d;
+    min-height: 100vh;
+}
+
+.header {
+    background: #fff;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 15px rgba(20, 60, 100, .07);
+}
+
+.logo {
+    color: #1677d2;
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.header-label {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.hero {
+    text-align: center;
+    padding: 75px 20px 45px;
+}
+
+.eyebrow {
+    display: block;
+    color: #1682d9;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 13px;
+}
+
+.hero h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.2;
+    color: #12345a;
+    margin-bottom: 16px;
+}
+
+.hero > p {
+    color: #64748b;
+    line-height: 1.7;
+}
+
+.search-box {
+    max-width: 650px;
+    margin: 32px auto 16px;
+    padding: 8px;
+    background: white;
+    border: 1px solid #dce8f5;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 8px 25px rgba(20, 60, 100, .07);
+}
+
+.search-icon {
+    font-size: 26px;
+    padding: 0 12px;
+    color: #8aa3bd;
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    padding: 13px 5px;
+    font-size: 15px;
+    color: #172b4d;
+}
+
+.search-box button {
+    background: #1677d2;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.search-box button:hover {
+    background: #095eaf;
+}
+
+.location-btn {
+    background: transparent;
+    border: none;
+    color: #1677d2;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.status-message {
+    min-height: 22px;
+    color: #d97706;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.container {
+    max-width: 1050px;
+    margin: 0 auto 28px;
+    padding: 30px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(20, 60, 100, .05);
+}
+
+.section-heading {
+    margin-bottom: 20px;
+}
+
+.section-heading h2,
+.container h2 {
+    color: #173b64;
+    font-size: 23px;
+}
+
+.city-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.city-btn {
+    padding: 12px 20px;
+    border: 1px solid #dce8f5;
+    border-radius: 30px;
+    background: #f5f9ff;
+    color: #315779;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.city-btn:hover {
+    background: #e3f1ff;
+    border-color: #1677d2;
+    color: #1677d2;
+}
+
+.weather-section {
+    min-height: 230px;
+}
+
+.empty-weather {
+    text-align: center;
+    padding: 35px 10px;
+}
+
+.weather-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.empty-weather h2 {
+    margin-bottom: 10px;
+}
+
+.empty-weather p {
+    color: #718096;
+    line-height: 1.6;
+    margin-top: 8px;
+}
+
+.weather-result h3 {
+    font-size: 19px;
+    color: #173b64;
+    margin: 30px 0 17px;
+}
+
+.weather-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.weather-top h2 {
+    font-size: 27px;
+    margin-bottom: 9px;
+}
+
+.weather-top p {
+    color: #718096;
+    font-size: 14px;
+}
+
+.main-temperature {
+    text-align: center;
+}
+
+.main-temperature img {
+    width: 75px;
+    height: 75px;
+    display: block;
+    margin: auto;
+}
+
+.main-temperature strong {
+    font-size: 42px;
+    color: #1677d2;
+}
+
+.main-temperature p {
+    margin-top: 5px;
+}
+
+.weather-details {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 30px;
+}
+
+.detail-card {
+    background: #f3f8ff;
+    border: 1px solid #e5eef8;
+    border-radius: 13px;
+    padding: 20px 12px;
+    text-align: center;
+}
+
+.detail-card span {
+    display: block;
+    color: #718096;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.detail-card strong {
+    color: #173b64;
+    font-size: 19px;
+}
+
+.forecast-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.forecast-item {
+    flex: 1;
+    min-width: 120px;
+    background: #f3f8ff;
+    border: 1px solid #e5eef8;
+    border-radius: 12px;
+    padding: 17px 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.forecast-item span {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1677d2;
+}
+
+.forecast-item small {
+    color: #718096;
+    line-height: 1.4;
+}
+
+.sun-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 25px;
+    padding: 18px;
+    background: #fff8e9;
+    border-radius: 12px;
+    color: #805d22;
+}
+
+.weather-source {
+    margin-top: 22px;
+    color: #718096;
+    font-size: 12px;
+}
+
+.weather-source a {
+    color: #1677d2;
+}
+
+.footer {
+    text-align: center;
+    padding: 30px 15px;
+    color: #718096;
+    font-size: 13px;
+    line-height: 2;
+}
+
+@media (max-width: 650px) {
+    .header {
+        padding: 17px 5%;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .header-label {
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 55px 16px 35px;
+    }
+
+    .search-box {
+        gap: 3px;
+    }
+
+    .search-box input {
+        font-size: 13px;
+    }
+
+    .search-box button {
+        padding: 13px 15px;
+    }
+
+    .container {
+        margin: 0 12px 20px;
+        padding: 22px 17px;
+    }
+
+    .weather-top {
+        align-items: flex-start;
+    }
+
+    .weather-top h2 {
+        font-size: 20px;
+    }
+
+    .main-temperature strong {
+        font-size: 32px;
+    }
+
+    .main-temperature img {
+        width: 55px;
+        height: 55px;
+    }
+
+    .weather-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .forecast-item {
+        min-width: 95px;
+    }
+}
