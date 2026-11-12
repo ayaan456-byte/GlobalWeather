@@ -1,0 +1,5 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://global-weather-pakistan-2026.netlify.app/sitemap.xml

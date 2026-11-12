@@ -4,75 +4,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Check live weather and forecasts for cities across Pakistan and worldwide.">
-    <title>Global Weather — Live Weather Worldwide</title>
+
+    <title>Global Weather — Live Weather Forecast Worldwide</title>
+    <meta name="description" content="Explore current weather, hourly forecasts, daily weather conditions and forecasts for cities across Pakistan and around the world.">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<header class="header">
-    <a href="#" class="logo">🌤 Global Weather</a>
-    <span class="header-label">Weather Worldwide</span>
+<header class="site-header">
+    <div class="header-inner">
+
+        <a href="index.html" class="brand">
+            <span class="brand-icon">🌤️</span>
+            <span>Global<span class="brand-blue">Weather</span></span>
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+            <a href="#home" class="active">Home</a>
+            <a href="#weatherSection">Weather</a>
+            <a href="#popularCities">Popular Cities</a>
+            <a href="#weatherInfo">Weather Guide</a>
+        </nav>
+
+        <a href="#footer" class="header-link">Explore More <span>↗</span></a>
+
+    </div>
 </header>
 
 <main>
-    <section class="hero">
-        <span class="eyebrow">YOUR WEATHER, EVERYWHERE</span>
-        <h1>Discover the Weather<br>Around the World</h1>
-        <p>Accurate weather information for your city and beyond.</p>
 
-        <form class="search-box" id="searchForm">
-            <span class="search-icon">⌕</span>
-            <input
-                    type="text"
-                    id="cityInput"
-                    placeholder="Search any city... e.g. Lahore, London"
-                    autocomplete="off"
-                    required
-            >
-            <button type="submit">Search</button>
-        </form>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="home">
+        <div class="hero-background"></div>
 
-        <button class="location-btn" id="locationBtn">
-            ◎ Use My Current Location
-        </button>
+        <div class="hero-content">
 
-        <p id="statusMessage" class="status-message" aria-live="polite"></p>
+            <span class="hero-label">
+                <span class="live-dot"></span>
+                YOUR WORLD. YOUR WEATHER.
+            </span>
+
+            <h1>
+                Weather insights<br>
+                for <span>everywhere.</span>
+            </h1>
+
+            <p class="hero-description">
+                Discover current conditions, forecasts and weather
+                information for places around the world.
+            </p>
+
+            <form class="search-box" id="searchForm">
+                <span class="search-icon">⌕</span>
+
+                <label for="cityInput" class="visually-hidden">
+                    Search for a city or location
+                </label>
+
+                <input
+                        type="text"
+                        id="cityInput"
+                        placeholder="Search city, country or location..."
+                        autocomplete="off"
+                        required
+                >
+
+                <button type="submit">
+                    Search <span>→</span>
+                </button>
+            </form>
+
+            <button class="location-btn" id="locationBtn">
+                <span>◎</span> Use my current location
+            </button>
+
+            <p id="statusMessage" class="status-message" aria-live="polite"></p>
+
+        </div>
+
+        <div class="hero-bottom">
+            <span>WEATHER AROUND THE WORLD</span>
+            <span>EXPLORE • DISCOVER • PLAN</span>
+        </div>
     </section>
 
-    <section class="container">
+
+    <!-- POPULAR CITIES -->
+    <section class="content-section popular-section" id="popularCities">
+
         <div class="section-heading">
             <div>
-                <span class="eyebrow">EXPLORE</span>
-                <h2>Popular Cities</h2>
+                <span class="section-kicker">EXPLORE THE WORLD</span>
+                <h2>Popular destinations</h2>
+                <p>Quickly check the weather in popular cities.</p>
+            </div>
+
+            <span class="section-decoration">WORLDWIDE WEATHER</span>
+        </div>
+
+        <div class="city-grid">
+
+            <button class="city-card" data-city="Karachi">
+                <span class="city-flag">🇵🇰</span>
+                <span class="city-name">Karachi</span>
+                <span class="city-country">Pakistan</span>
+                <span class="city-arrow">↗</span>
+            </button>
+
+            <button class="city-card" data-city="Lahore">
+                <span class="city-flag">🇵🇰</span>
+                <span class="city-name">Lahore</span>
+                <span class="city-country">Pakistan</span>
+                <span class="city-arrow">↗</span>
+            </button>
+
+            <button class="city-card" data-city="Islamabad">
+                <span class="city-flag">🇵🇰</span>
+                <span class="city-name">Islamabad</span>
+                <span class="city-country">Pakistan</span>
+                <span class="city-arrow">↗</span>
+            </button>
+
+            <button class="city-card" data-city="Dubai">
+                <span class="city-flag">🇦🇪</span>
+                <span class="city-name">Dubai</span>
+                <span class="city-country">UAE</span>
+                <span class="city-arrow">↗</span>
+            </button>
+
+            <button class="city-card" data-city="London">
+                <span class="city-flag">🇬🇧</span>
+                <span class="city-name">London</span>
+                <span class="city-country">United Kingdom</span>
+                <span class="city-arrow">↗</span>
+            </button>
+
+            <button class="city-card" data-city="New York">
+                <span class="city-flag">🇺🇸</span>
+                <span class="city-name">New York</span>
+                <span class="city-country">United States</span>
+                <span class="city-arrow">↗</span>
+            </button>
+
+            <button class="city-card" data-city="Tokyo">
+                <span class="city-flag">🇯🇵</span>
+                <span class="city-name">Tokyo</span>
+                <span class="city-country">Japan</span>
+                <span class="city-arrow">↗</span>
+            </button>
+
+            <button class="city-card" data-city="Istanbul">
+                <span class="city-flag">🇹🇷</span>
+                <span class="city-name">Istanbul</span>
+                <span class="city-country">Türkiye</span>
+                <span class="city-arrow">↗</span>
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- WEATHER RESULTS -->
+    <section class="content-section weather-section" id="weatherSection">
+
+        <div class="weather-welcome">
+            <div class="welcome-icon">🌍</div>
+
+            <span class="section-kicker">LIVE WEATHER</span>
+
+            <h2>Your weather starts here</h2>
+
+            <p>
+                Search for any supported city to explore its current
+                weather and forecast.
+            </p>
+
+            <div class="welcome-features">
+                <span>☀️ Current conditions</span>
+                <span>◷ Hourly forecast</span>
+                <span>📅 Daily forecast</span>
             </div>
         </div>
 
-        <div class="city-list">
-            <button class="city-btn" data-city="Karachi">Karachi</button>
-            <button class="city-btn" data-city="Lahore">Lahore</button>
-            <button class="city-btn" data-city="Islamabad">Islamabad</button>
-            <button class="city-btn" data-city="Dubai">Dubai</button>
-            <button class="city-btn" data-city="London">London</button>
-            <button class="city-btn" data-city="New York">New York</button>
-            <button class="city-btn" data-city="Tokyo">Tokyo</button>
+    </section>
+
+
+    <!-- WEATHER INFORMATION -->
+    <section class="content-section information-section" id="weatherInfo">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-kicker">UNDERSTAND YOUR WEATHER</span>
+                <h2>Weather information</h2>
+                <p>Useful weather details to help you plan your day.</p>
+            </div>
+        </div>
+
+        <div class="information-grid">
+
+            <article class="information-card">
+                <div class="info-icon blue-icon">🌡️</div>
+                <h3>Temperature</h3>
+                <p>
+                    Understand the current temperature and how warm
+                    or cold it feels outside.
+                </p>
+            </article>
+
+            <article class="information-card">
+                <div class="info-icon orange-icon">☀️</div>
+                <h3>UV Index</h3>
+                <p>
+                    Learn about ultraviolet radiation and understand
+                    when sun protection may be needed.
+                </p>
+            </article>
+
+            <article class="information-card">
+                <div class="info-icon green-icon">💧</div>
+                <h3>Humidity</h3>
+                <p>
+                    Check the amount of moisture in the air and
+                    understand how it affects comfort.
+                </p>
+            </article>
+
+            <article class="information-card">
+                <div class="info-icon purple-icon">💨</div>
+                <h3>Wind Conditions</h3>
+                <p>
+                    Explore wind speed and conditions that may
+                    affect outdoor activities.
+                </p>
+            </article>
+
         </div>
     </section>
 
-    <section class="container weather-section" id="weatherSection">
-        <div class="empty-weather">
-            <div class="weather-icon">🌍</div>
-            <h2>Your Weather Starts Here</h2>
-            <p>Search for a city above to see its weather information.</p>
+
+    <!-- CALL TO ACTION -->
+    <section class="explore-banner">
+        <div>
+            <span class="section-kicker">STAY WEATHER AWARE</span>
+            <h2>Wherever life takes you.</h2>
+            <p>Explore weather conditions across the world with Global Weather.</p>
         </div>
+
+        <a href="#home" class="explore-button">Check Weather <span>→</span></a>
     </section>
+
 </main>
 
-<footer class="footer">
-    <p>Global Weather — Weather information for everyone.</p>
-    <p>Weather data will be provided with source attribution.</p>
+
+<!-- FOOTER -->
+<footer class="site-footer" id="footer">
+
+    <div class="footer-main">
+
+        <div class="footer-brand-column">
+            <a href="index.html" class="brand footer-brand">
+                <span class="brand-icon">🌤️</span>
+                <span>Global<span class="brand-blue">Weather</span></span>
+            </a>
+
+            <p>
+                Weather information for everyone, everywhere.
+                Explore conditions and forecasts to help plan your day.
+            </p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Explore</h3>
+            <a href="index.html">Home</a>
+            <a href="#weatherSection">Weather</a>
+            <a href="#popularCities">Popular Cities</a>
+            <a href="#weatherInfo">Weather Guide</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>Information</h3>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="faq.html">Frequently Asked Questions</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>Legal</h3>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+            <a href="disclaimer.html">Weather Disclaimer</a>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© <span id="currentYear">2026</span> Global Weather. All rights reserved.</p>
+        <p class="made-by">Made by <strong>Ayaan</strong> ❤️</p>
+        <p class="footer-credit">Weather data provided by WeatherAPI.com</p>
+    </div>
+
 </footer>
 
 <script src="app.js"></script>
+
 </body>
 </html>

@@ -7,15 +7,19 @@ const locationBtn = document.getElementById("locationBtn");
 
 const WEATHER_ENDPOINT = "/.netlify/functions/weather";
 
+let latestWeather = null;
+let temperatureUnit = "C";
+
 async function getWeather(city) {
     if (!city || !city.trim()) return;
 
-    statusMessage.textContent = "Loading weather...";
+    statusMessage.textContent = "Getting the latest weather...";
+
     weatherSection.innerHTML = `
         <div class="empty-weather">
             <div class="weather-icon">⏳</div>
             <h2>Loading weather</h2>
-            <p>Please wait while we get the latest information.</p>
+            <p>Getting the latest conditions for ${escapeHTML(city)}...</p>
         </div>
     `;
 
@@ -24,20 +28,37 @@ async function getWeather(city) {
             `${WEATHER_ENDPOINT}?q=${encodeURIComponent(city.trim())}`
         );
 
-        const data = await response.json();
+        const result = await response.json();
 
         if (!response.ok) {
             throw new Error(
-                data.error?.message ||
-                data.message ||
+                result.error?.message ||
+                result.message ||
                 "Weather information could not be found."
             );
         }
 
-        displayWeather(data.data || data);
+        const data = result.data || result;
+
+        if (!data.location || !data.current) {
+            throw new Error("Weather data is incomplete.");
+        }
+
+        latestWeather = data;
+        temperatureUnit = "C";
+
+        displayWeather();
+
         statusMessage.textContent = "";
 
+        weatherSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
     } catch (error) {
+        latestWeather = null;
+
         statusMessage.textContent = error.message;
 
         weatherSection.innerHTML = `
@@ -45,20 +66,18 @@ async function getWeather(city) {
                 <div class="weather-icon">🌧️</div>
                 <h2>Weather unavailable</h2>
                 <p>${escapeHTML(error.message)}</p>
-                <p>Please try another city later.</p>
+                <p>Please check the location and try again.</p>
             </div>
         `;
     }
 }
 
-function displayWeather(data) {
-    const location = data.location;
-    const current = data.current;
-    const forecastDays = data.forecast?.forecastday || [];
+function displayWeather() {
+    if (!latestWeather) return;
 
-    if (!location || !current) {
-        throw new Error("Weather data format is incomplete.");
-    }
+    const location = latestWeather.location;
+    const current = latestWeather.current;
+    const forecastDays = latestWeather.forecast?.forecastday || [];
 
     const condition = current.condition?.text || "Unknown";
     const icon = current.condition?.icon || "";
@@ -66,77 +85,161 @@ function displayWeather(data) {
         ? (icon.startsWith("//") ? `https:${icon}` : icon)
         : "";
 
-    const hourly = forecastDays[0]?.hour || [];
+    const isCelsius = temperatureUnit === "C";
 
-    const currentHour = new Date().getHours();
+    const temperature = isCelsius
+        ? current.temp_c
+        : current.temp_f;
+
+    const feelsLike = isCelsius
+        ? current.feelslike_c
+        : current.feelslike_f;
+
+    const unit = isCelsius ? "°C" : "°F";
+
+    const hourly = forecastDays.flatMap(day => day.hour || []);
+
+    const localTime = location.localtime || "";
+    const localHour = localTime.slice(0, 13);
 
     const upcomingHours = hourly
-        .filter(hour => new Date(hour.time.replace(" ", "T")).getTime() >= Date.now())
+        .filter(hour => hour.time >= `${localHour}:00`)
         .slice(0, 6);
 
-    const hourlyHTML = upcomingHours.map(hour => `
-        <div class="forecast-item">
-            <span>${formatHour(hour.time)}</span>
-            <span>${Math.round(hour.temp_c)}°</span>
-            <small>${escapeHTML(hour.condition?.text || "")}</small>
-        </div>
-    `).join("");
+    const hourlyHTML = upcomingHours.map(hour => {
+        const temp = isCelsius ? hour.temp_c : hour.temp_f;
+        const hourIcon = getIconURL(hour.condition?.icon);
 
-    const forecastHTML = forecastDays.map(day => `
-        <div class="forecast-item">
-            <strong>${formatDate(day.date)}</strong>
-            <span>${Math.round(day.day?.maxtemp_c ?? 0)}° / ${Math.round(day.day?.mintemp_c ?? 0)}°</span>
-            <small>${escapeHTML(day.day?.condition?.text || "")}</small>
-        </div>
-    `).join("");
+        return `
+            <div class="forecast-item">
+                <span>${formatHour(hour.time)}</span>
+                ${hourIcon ? `<img src="${escapeHTML(hourIcon)}" alt="" width="38" height="38">` : ""}
+                <strong>${Math.round(temp)}${unit}</strong>
+                <small>${escapeHTML(hour.condition?.text || "—")}</small>
+                <small>Rain: ${hour.chance_of_rain ?? 0}%</small>
+            </div>
+        `;
+    }).join("");
+
+    const forecastHTML = forecastDays.map(day => {
+        const max = isCelsius
+            ? day.day?.maxtemp_c
+            : day.day?.maxtemp_f;
+
+        const min = isCelsius
+            ? day.day?.mintemp_c
+            : day.day?.mintemp_f;
+
+        const dayIcon = getIconURL(day.day?.condition?.icon);
+
+        return `
+            <div class="forecast-item">
+                <strong>${formatDate(day.date)}</strong>
+                ${dayIcon ? `<img src="${escapeHTML(dayIcon)}" alt="" width="42" height="42">` : ""}
+                <span>${Math.round(max ?? 0)}${unit} / ${Math.round(min ?? 0)}${unit}</span>
+                <small>${escapeHTML(day.day?.condition?.text || "—")}</small>
+                <small>Rain: ${day.day?.daily_chance_of_rain ?? 0}%</small>
+            </div>
+        `;
+    }).join("");
+
+    const currentRain = current.precip_mm ?? 0;
+    const pressure = current.pressure_mb ?? "—";
+    const visibility = current.vis_km ?? "—";
+    const windDirection = current.wind_dir || "—";
+    const windSpeed = current.wind_kph ?? "—";
+
+    const todayAstro = forecastDays[0]?.astro || {};
 
     weatherSection.innerHTML = `
         <div class="weather-result">
+
             <div class="weather-top">
                 <div>
-                    <span class="eyebrow">CURRENT WEATHER</span>
+                    <span class="section-kicker">CURRENT WEATHER</span>
                     <h2>${escapeHTML(location.name)}, ${escapeHTML(location.country)}</h2>
-                    <p>${escapeHTML(location.localtime || "")}</p>
+                    <p>Local time: ${escapeHTML(localTime)}</p>
+                    <p>Last updated: ${escapeHTML(current.last_updated || "—")}</p>
                 </div>
+
                 <div class="main-temperature">
                     ${iconURL ? `<img src="${escapeHTML(iconURL)}" alt="${escapeHTML(condition)}">` : ""}
-                    <strong>${Math.round(current.temp_c)}°C</strong>
+                    <strong>${Math.round(temperature)}${unit}</strong>
                     <p>${escapeHTML(condition)}</p>
+
+                    <button
+                        type="button"
+                        id="unitToggle"
+                        class="unit-toggle"
+                        aria-label="Switch temperature unit"
+                    >
+                        ${isCelsius ? "Switch to °F" : "Switch to °C"}
+                    </button>
                 </div>
             </div>
 
             <div class="weather-details">
+
                 <div class="detail-card">
                     <span>Feels Like</span>
-                    <strong>${Math.round(current.feelslike_c)}°C</strong>
+                    <strong>${Math.round(feelsLike)}${unit}</strong>
                 </div>
+
                 <div class="detail-card">
                     <span>Humidity</span>
                     <strong>${current.humidity}%</strong>
                 </div>
+
                 <div class="detail-card">
-                    <span>Wind</span>
-                    <strong>${current.wind_kph} km/h</strong>
+                    <span>Wind Speed</span>
+                    <strong>${windSpeed} km/h</strong>
                 </div>
+
                 <div class="detail-card">
                     <span>UV Index</span>
-                    <strong>${current.uv}</strong>
+                    <strong>${current.uv ?? "—"}</strong>
                 </div>
+
+                <div class="detail-card">
+                    <span>Wind Direction</span>
+                    <strong>${escapeHTML(windDirection)}</strong>
+                </div>
+
+                <div class="detail-card">
+                    <span>Visibility</span>
+                    <strong>${visibility} km</strong>
+                </div>
+
+                <div class="detail-card">
+                    <span>Pressure</span>
+                    <strong>${pressure} mb</strong>
+                </div>
+
+                <div class="detail-card">
+                    <span>Precipitation</span>
+                    <strong>${currentRain} mm</strong>
+                </div>
+
             </div>
 
             <h3>Hourly Forecast</h3>
+
             <div class="forecast-list">
                 ${hourlyHTML || "<p>Hourly forecast unavailable.</p>"}
             </div>
 
-            <h3>3-Day Forecast</h3>
+            <h3>Daily Forecast</h3>
+
             <div class="forecast-list">
                 ${forecastHTML || "<p>Forecast unavailable.</p>"}
             </div>
 
+            <h3>Sunrise & Sunset</h3>
+
             <div class="sun-info">
-                <span>Sunrise: ${escapeHTML(forecastDays[0]?.astro?.sunrise || "—")}</span>
-                <span>Sunset: ${escapeHTML(forecastDays[0]?.astro?.sunset || "—")}</span>
+                <span>☀️ Sunrise: ${escapeHTML(todayAstro.sunrise || "—")}</span>
+                <span>🌇 Sunset: ${escapeHTML(todayAstro.sunset || "—")}</span>
+                <span>🌙 Moon Phase: ${escapeHTML(todayAstro.moon_phase || "—")}</span>
             </div>
 
             <p class="weather-source">
@@ -145,20 +248,36 @@ function displayWeather(data) {
                     WeatherAPI.com
                 </a>
             </p>
+
         </div>
     `;
 
-    statusMessage.textContent = "";
+    document.getElementById("unitToggle").addEventListener("click", () => {
+        temperatureUnit = temperatureUnit === "C" ? "F" : "C";
+        displayWeather();
+    });
+}
+
+function getIconURL(icon) {
+    if (!icon) return "";
+
+    return icon.startsWith("//")
+        ? `https:${icon}`
+        : icon;
 }
 
 function formatHour(time) {
-    return new Date(time.replace(" ", "T"))
-        .toLocaleTimeString([], { hour: "numeric" });
+    const parts = time.split(" ");
+    return parts[1] || time;
 }
 
 function formatDate(date) {
     return new Date(`${date}T12:00:00`)
-        .toLocaleDateString([], { weekday: "short" });
+        .toLocaleDateString("en-US", {
+            weekday: "short",
+            month: "short",
+            day: "numeric"
+        });
 }
 
 function escapeHTML(value) {
@@ -176,9 +295,10 @@ searchForm.addEventListener("submit", event => {
     getWeather(cityInput.value);
 });
 
-document.querySelectorAll(".city-btn").forEach(button => {
+document.querySelectorAll(".city-card").forEach(button => {
     button.addEventListener("click", () => {
         const city = button.dataset.city;
+
         cityInput.value = city;
         getWeather(city);
     });
@@ -186,7 +306,8 @@ document.querySelectorAll(".city-btn").forEach(button => {
 
 locationBtn.addEventListener("click", () => {
     if (!navigator.geolocation) {
-        statusMessage.textContent = "Your browser does not support location detection.";
+        statusMessage.textContent =
+            "Your browser does not support location detection.";
         return;
     }
 
@@ -200,6 +321,14 @@ locationBtn.addEventListener("click", () => {
         () => {
             statusMessage.textContent =
                 "Location permission was denied. Please search for your city.";
+        },
+        {
+            enableHighAccuracy: false,
+            timeout: 10000,
+            maximumAge: 300000
         }
     );
 });
+
+document.getElementById("currentYear").textContent =
+    new Date().getFullYear();

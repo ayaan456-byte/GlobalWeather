@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions | GlobalWeather</title>
+    <meta name="description" content="Find answers to common questions about GlobalWeather and its weather forecasts.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <a href="index.html" class="logo">🌤️ GlobalWeather</a>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container" style="max-width:850px;padding-top:70px;padding-bottom:80px;">
+    <span class="section-kicker">HELP CENTER</span>
+    <h1>Frequently Asked Questions</h1>
+    <p>Here are answers to common questions about GlobalWeather.</p>
+
+    <h2>1. What is GlobalWeather?</h2>
+    <p>GlobalWeather is a website that helps you check current weather conditions and forecasts for locations around the world.</p>
+
+    <h2>2. How do I check the weather?</h2>
+    <p>Enter a city or location in the search box on the homepage and press the search button.</p>
+
+    <h2>3. Can I check weather in other countries?</h2>
+    <p>Yes. You can search for supported locations around the world. Coverage depends on our weather data provider.</p>
+
+    <h2>4. Can I use my current location?</h2>
+    <p>Yes. Select the current location button and allow your browser to access your location.</p>
+
+    <h2>5. Is the weather information always accurate?</h2>
+    <p>Weather information is provided by WeatherAPI.com. Forecasts are estimates and actual conditions may change.</p>
+
+    <h2>6. Can I change Celsius to Fahrenheit?</h2>
+    <p>Yes. When weather results are displayed, use the temperature unit switch to change between Celsius and Fahrenheit.</p>
+
+    <h2>7. Is GlobalWeather free to use?</h2>
+    <p>You can access the website without creating an account. Any future features or changes will be described on the website.</p>
+
+    <h2>8. Where does the weather data come from?</h2>
+    <p>Weather data is provided by <a href="https://www.weatherapi.com/" target="_blank" rel="noopener">WeatherAPI.com</a>.</p>
+
+    <h2>9. How can I share feedback?</h2>
+    <p>Visit our <a href="contact.html">Contact page</a> to prepare a message for us.</p>
+
+    <h2>10. What should I do during severe weather?</h2>
+    <p>Follow official local weather warnings and instructions from your local authorities.</p>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <p>Made by Ayaan ❤️</p>
+        <p>© <span id="currentYear"></span> GlobalWeather. All rights reserved.</p>
+        <p>
+            <a href="about.html">About</a> ·
+            <a href="contact.html">Contact</a> ·
+            <a href="privacy.html">Privacy</a>
+        </p>
+    </div>
+</footer>
+
+<script>
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

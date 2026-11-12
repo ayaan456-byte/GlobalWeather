@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">GlobalWeather logo</title>
+  <desc id="desc">Blue globe with a white cloud and sun</desc>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#48b5ff"/>
+      <stop offset="1" stop-color="#1765d1"/>
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="224" fill="url(#g)"/>
+  <path d="M93 205c43-65 105-103 178-110M75 278c53 37 119 57 181 57 66 0 128-20 180-58M151 55c-34 54-53 122-53 201s19 147 53 201M361 55c34 54 53 122 53 201s-19 147-53 201" fill="none" stroke="#fff" stroke-opacity=".32" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="354" cy="153" r="49" fill="#ffd45a"/>
+  <path d="M151 322c-35 0-63-27-63-61 0-32 25-58 57-61 11-49 55-84 107-84 54 0 99 38 108 89 34 4 60 32 60 66 0 37-30 67-67 67H151z" fill="#fff"/>
+</svg>

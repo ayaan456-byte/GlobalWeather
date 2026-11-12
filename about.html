@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | GlobalWeather</title>
+    <meta name="description" content="Learn about GlobalWeather, our mission to make worldwide weather information simple and accessible.">
+    <link rel="canonical" href="https://global-weather-pakistan-2026.netlify.app/about.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <a href="index.html" class="logo">🌤️ GlobalWeather</a>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container" style="padding-top:70px;padding-bottom:80px;max-width:850px;">
+    <span class="section-kicker">ABOUT GLOBALWEATHER</span>
+    <h1>Weather information, made simple.</h1>
+
+    <p>
+        GlobalWeather is a weather information website designed to help
+        people explore current weather conditions and forecasts for
+        locations around the world.
+    </p>
+
+    <h2>Our Mission</h2>
+    <p>
+        Our mission is to make weather information easy to understand,
+        accessible and useful. Whether you are checking the weather
+        in your hometown or exploring another country, we aim to give
+        you a simple way to find the information you need.
+    </p>
+
+    <h2>What You Can Explore</h2>
+    <ul>
+        <li>Current weather conditions.</li>
+        <li>Hourly weather forecasts.</li>
+        <li>Daily weather forecasts.</li>
+        <li>Temperature, humidity and wind information.</li>
+        <li>Weather information for searched locations.</li>
+    </ul>
+
+    <h2>Our Weather Data</h2>
+    <p>
+        Weather information on this website is provided by
+        <a href="https://www.weatherapi.com/" target="_blank" rel="noopener">
+            WeatherAPI.com
+        </a>.
+        Data availability and forecast coverage depend on the provider.
+    </p>
+
+    <h2>Our Commitment</h2>
+    <p>
+        We aim to present weather information clearly and responsibly.
+        Weather conditions can change, so always check official local
+        guidance during severe weather.
+    </p>
+
+    <a href="index.html" class="primary-button">Explore Weather →</a>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <p>Made by Ayaan ❤️</p>
+        <p>© <span id="currentYear"></span> GlobalWeather. All rights reserved.</p>
+        <p>
+            <a href="privacy.html">Privacy</a> ·
+            <a href="terms.html">Terms</a> ·
+            <a href="disclaimer.html">Disclaimer</a>
+        </p>
+    </div>
+</footer>
+
+<script>
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
