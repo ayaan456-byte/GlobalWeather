@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://global-weather-pakistan-2026.netlify.app/sitemap.xml
+Sitemap: https://globalweather.ayaanbhai856.workers.dev/sitemap.xml
